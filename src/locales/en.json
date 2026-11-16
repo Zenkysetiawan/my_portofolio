@@ -1,0 +1,100 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "skills": "Skills",
+    "journey": "Journey",
+    "content": "Content",
+    "cv": "CV",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "roles": ["AI Software Engineer", "Web Developer", "Tech Content Creator"],
+    "description": "Informatics student who builds web and mobile applications, while diving deeper into AI, machine learning, and RAG on the path to becoming an AI Software Engineer.",
+    "viewProjects": "View Projects",
+    "contact": "Contact",
+    "downloadCV": "Download CV"
+  },
+  "about": {
+    "title": "About Me",
+    "status": "Informatics Undergraduate Student",
+    "paragraphs": [
+      "I'm Zenky Setiawan, an Informatics undergraduate at Universitas Dehasen Bengkulu. I enjoy building applications that people actually use: from a QR Code-based digital museum platform (Smart Museum) and the EcoSphere environmental education app, to a personal finance app, marketplaces, and e-commerce websites.",
+      "Outside of class, I'm active in the DE CODE Bengkulu tech community as Vice Chairperson and previously led its graphic design team. Together with a lecturer, I also presented EcoSphere to high school students in Kepahiang. Right now I'm steering toward AI, machine learning, and RAG to become an AI Software Engineer, while sharing what I learn through tech content."
+    ],
+    "stats": [
+      { "value": "4+", "label": "Projects built" },
+      { "value": "2", "label": "Python certifications" },
+      { "value": "1st Place", "label": "DE CODE Bootcamp 2025" },
+      { "value": "Vice Chair", "label": "DE CODE 2025–2026" }
+    ]
+  },
+  "projects": {
+    "title": "Projects",
+    "demo": "View Demo",
+    "github": "GitHub",
+    "filters": {
+      "all": "All",
+      "web": "Web & E-commerce",
+      "system": "Systems",
+      "mobile": "Mobile",
+      "ai": "AI/ML/RAG"
+    },
+    "empty": {
+      "web": "Web & E-commerce projects are in the works. Coming soon!",
+      "system": "System projects are in the works. Coming soon!",
+      "mobile": "Mobile projects are in the works. Coming soon!",
+      "ai": "AI, machine learning, and RAG projects are in the works. Coming soon!"
+    }
+  },
+  "skills": {
+    "title": "Skills",
+    "learningNote": "My learning path toward becoming an AI Software Engineer.",
+    "groups": {
+      "languages": "Programming Languages",
+      "frameworks": "Frameworks & Libraries",
+      "database": "Database & Cloud",
+      "tools": "Tools & Platforms",
+      "learning": "Currently Learning"
+    }
+  },
+  "journey": {
+    "title": "My Journey"
+  },
+  "content": {
+    "title": "Content",
+    "subtitle": "I share what I learn about technology and coding through short videos.",
+    "followOn": "Follow on",
+    "watchOn": "Watch on",
+    "play": "Play video",
+    "empty": "My first video is on its way. In the meantime, visit my profiles on TikTok and Instagram!"
+  },
+  "cv": {
+    "title": "CV",
+    "subtitle": "A summary of my experience, skills, and achievements in one document.",
+    "read": "Read CV",
+    "download": "Download CV",
+    "mobileNote": "The PDF preview works best on a computer. On mobile, open it with the Read CV button.",
+    "missing": "The English CV is coming soon.",
+    "viewOther": "View the Indonesian version"
+  },
+  "contact": {
+    "title": "Contact",
+    "heading": "Let's talk and build something together.",
+    "subtitle": "Open to freelance projects, collaborations, and internship or job opportunities. Pick whichever channel suits you best.",
+    "whatsappCta": "Chat on WhatsApp",
+    "orFollow": "Or follow my learning journey and content:"
+  },
+  "footer": {
+    "about": "A personal portfolio I built from scratch with React. Every project here can serve as a reference for your website or system needs.",
+    "navigation": "Navigation",
+    "connect": "Connect",
+    "location": "Bengkulu, Indonesia",
+    "available": "Open for freelance & collaboration",
+    "rights": "All rights reserved.",
+    "builtWith": "Built with React, Vite, Tailwind CSS & Motion",
+    "backToTop": "Back to top"
+  }
+}

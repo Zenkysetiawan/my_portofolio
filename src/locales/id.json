@@ -1,0 +1,100 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "about": "Tentang",
+    "projects": "Project",
+    "skills": "Skill",
+    "journey": "Perjalanan",
+    "content": "Konten",
+    "cv": "CV",
+    "contact": "Kontak"
+  },
+  "hero": {
+    "greeting": "Halo, saya",
+    "roles": ["AI Software Engineer", "Web Developer", "Tech Content Creator"],
+    "description": "Mahasiswa Informatika yang membangun aplikasi web dan mobile, serta terus mendalami AI, machine learning, dan RAG untuk menjadi AI Software Engineer.",
+    "viewProjects": "Lihat Project",
+    "contact": "Kontak",
+    "downloadCV": "Download CV"
+  },
+  "about": {
+    "title": "Tentang Saya",
+    "status": "Mahasiswa S1 Informatika",
+    "paragraphs": [
+      "Saya Zenky Setiawan, mahasiswa S1 Informatika di Universitas Dehasen Bengkulu. Saya suka membangun aplikasi yang benar-benar dipakai orang: mulai dari platform museum digital berbasis QR Code (Smart Museum), aplikasi edukasi lingkungan EcoSphere, aplikasi keuangan pribadi, sampai web marketplace dan e-commerce.",
+      "Di luar kuliah, saya aktif di komunitas teknologi DE CODE Bengkulu sebagai Wakil Ketua Umum dan pernah memimpin tim desain grafis. Bersama dosen, saya juga mempresentasikan EcoSphere kepada siswa SMA di Kepahiang. Saat ini saya mengarahkan diri ke AI, machine learning, dan RAG untuk menjadi AI Software Engineer, sambil berbagi proses belajar lewat konten teknologi."
+    ],
+    "stats": [
+      { "value": "4+", "label": "Project dikerjakan" },
+      { "value": "2", "label": "Sertifikasi Python" },
+      { "value": "Juara 1", "label": "Bootcamp DE CODE 2025" },
+      { "value": "Wakil Ketua", "label": "Umum DE CODE 2025–2026" }
+    ]
+  },
+  "projects": {
+    "title": "Project",
+    "demo": "Lihat Demo",
+    "github": "GitHub",
+    "filters": {
+      "all": "Semua",
+      "web": "Web & E-commerce",
+      "system": "Sistem",
+      "mobile": "Mobile",
+      "ai": "AI/ML/RAG"
+    },
+    "empty": {
+      "web": "Project Web & E-commerce sedang dikerjakan. Segera hadir!",
+      "system": "Project Sistem sedang dikerjakan. Segera hadir!",
+      "mobile": "Project Mobile sedang dikerjakan. Segera hadir!",
+      "ai": "Project AI, machine learning, dan RAG sedang dikerjakan. Segera hadir!"
+    }
+  },
+  "skills": {
+    "title": "Skill",
+    "learningNote": "Arah belajar saya menuju AI Software Engineer.",
+    "groups": {
+      "languages": "Bahasa Pemrograman",
+      "frameworks": "Framework & Library",
+      "database": "Database & Cloud",
+      "tools": "Tools & Platform",
+      "learning": "Sedang Dipelajari"
+    }
+  },
+  "journey": {
+    "title": "Perjalanan"
+  },
+  "content": {
+    "title": "Konten",
+    "subtitle": "Saya berbagi pembelajaran seputar teknologi dan coding lewat video pendek.",
+    "followOn": "Ikuti di",
+    "watchOn": "Tonton di",
+    "play": "Putar video",
+    "empty": "Video pertama sedang disiapkan. Sementara itu, kunjungi profil saya di TikTok dan Instagram!"
+  },
+  "cv": {
+    "title": "CV",
+    "subtitle": "Ringkasan pengalaman, skill, dan prestasi saya dalam satu dokumen.",
+    "read": "Baca CV",
+    "download": "Download CV",
+    "mobileNote": "Pratinjau PDF paling nyaman di komputer. Di HP, buka lewat tombol Baca CV.",
+    "missing": "CV versi Indonesia belum tersedia.",
+    "viewOther": "Lihat versi Indonesia"
+  },
+  "contact": {
+    "title": "Kontak",
+    "heading": "Mari berdiskusi dan membangun sesuatu bersama.",
+    "subtitle": "Terbuka untuk project freelance, kolaborasi, dan peluang magang atau kerja. Pilih jalur yang paling nyaman untuk Anda.",
+    "whatsappCta": "Chat lewat WhatsApp",
+    "orFollow": "Atau ikuti proses belajar dan konten saya:"
+  },
+  "footer": {
+    "about": "Portofolio pribadi yang saya bangun dari nol dengan React. Setiap project di sini bisa menjadi gambaran untuk kebutuhan website atau sistem Anda.",
+    "navigation": "Navigasi",
+    "connect": "Terhubung",
+    "location": "Bengkulu, Indonesia",
+    "available": "Terbuka untuk freelance & kolaborasi",
+    "rights": "Hak cipta dilindungi.",
+    "builtWith": "Dibuat dengan React, Vite, Tailwind CSS & Motion",
+    "backToTop": "Kembali ke atas"
+  }
+}
