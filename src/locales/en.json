@@ -1,70 +1,88 @@
 {
   "nav": {
     "home": "Home",
+    "projects": "Work",
+    "skills": "Expertise",
     "about": "About",
-    "projects": "Projects",
-    "skills": "Skills",
     "journey": "Journey",
     "content": "Content",
-    "cv": "CV",
-    "contact": "Contact"
+    "contact": "Contact",
+    "hire": "Hire me",
+    "menu": "Open menu",
+    "themeToLight": "Switch to light mode",
+    "themeToDark": "Switch to dark mode",
+    "prev": "Previous section",
+    "next": "Next section"
   },
   "hero": {
     "greeting": "Hi, I'm",
     "roles": ["AI Software Engineer", "Web Developer", "Tech Content Creator"],
     "description": "Informatics student who builds web and mobile applications, while diving deeper into AI, machine learning, and RAG on the path to becoming an AI Software Engineer.",
-    "viewProjects": "View Projects",
+    "viewProjects": "View Work",
     "contact": "Contact",
     "downloadCV": "Download CV",
     "cardAlt": "Zenky Setiawan's 3D ID card, draggable and flippable",
     "dragHint": "Drag the card, click to flip it",
-    "flipCard": "Flip card"
+    "flipCard": "Flip card",
+    "location": "Bengkulu, ID",
+    "status": "Open for freelance"
   },
   "about": {
-    "title": "About Me",
-    "status": "Informatics Undergraduate Student",
-    "paragraphs": [
-      "I'm Zenky Setiawan, an Informatics undergraduate at Universitas Dehasen Bengkulu. I enjoy building applications that people actually use: from a QR Code-based digital museum platform (Smart Museum) and the EcoSphere environmental education app, to a personal finance app, marketplaces, and e-commerce websites.",
-      "Outside of class, I'm active in the DE CODE Bengkulu tech community as Vice Chairperson and previously led its graphic design team. Together with a lecturer, I also presented EcoSphere to high school students in Kepahiang. Right now I'm steering toward AI, machine learning, and RAG to become an AI Software Engineer, while sharing what I learn through tech content."
-    ],
-    "stats": [
-      { "value": "4+", "label": "Projects built" },
-      { "value": "2", "label": "Python certifications" },
-      { "value": "1st Place", "label": "DE CODE Bootcamp 2025" },
-      { "value": "Vice Chair", "label": "DE CODE 2025–2026" }
-    ]
+    "title": "About me",
+    "currently": "Currently"
   },
   "projects": {
-    "title": "Projects",
-    "demo": "View Demo",
-    "github": "GitHub",
-    "filters": {
+    "title": "Selected work",
+    "subtitle": "A few things I've built. Click the card in the middle to read the story behind it.",
+    "tabs": {
       "all": "All",
       "web": "Web & E-commerce",
-      "system": "Systems",
+      "sistem": "Systems",
       "mobile": "Mobile",
-      "ai": "AI/ML/RAG"
+      "ai": "AI / ML / RAG"
     },
-    "empty": {
-      "web": "Web & E-commerce projects are in the works. Coming soon!",
-      "system": "System projects are in the works. Coming soon!",
-      "mobile": "Mobile projects are in the works. Coming soon!",
-      "ai": "AI, machine learning, and RAG projects are in the works. Coming soon!"
-    }
+    "soon": "In progress",
+    "viewCase": "View case study",
+    "demo": "Live demo",
+    "code": "Code",
+    "noDemo": "Demo coming soon",
+    "close": "Close",
+    "prev": "Previous project",
+    "next": "Next project",
+    "overview": "Overview",
+    "features": "Key features",
+    "impact": "Impact",
+    "stack": "Tech stack",
+    "role": "Role"
   },
   "skills": {
-    "title": "Skills",
-    "learningNote": "My learning path toward becoming an AI Software Engineer.",
-    "groups": {
-      "languages": "Programming Languages",
-      "frameworks": "Frameworks & Libraries",
-      "database": "Database & Cloud",
-      "tools": "Tools & Platforms",
-      "learning": "Currently Learning"
-    }
+    "title": "What I can do",
+    "subtitle": "From websites to mobile apps, and moving into AI. These are the areas we can work on together.",
+    "learningBadge": "Learning",
+    "ctaText": "Got an idea or need help with a project? Let's talk.",
+    "ctaButton": "Contact me",
+    "stackLabel": "Tech I work with"
   },
   "journey": {
-    "title": "My Journey"
+    "title": "Journey",
+    "subtitle": "Experience, achievements, certifications, and education, newest first.",
+    "filters": {
+      "all": "All",
+      "experience": "Experience",
+      "achievement": "Achievements",
+      "certification": "Certifications",
+      "education": "Education"
+    },
+    "items": "items",
+    "scrollHint": "scroll to see more",
+    "types": {
+      "education": "Education",
+      "organization": "Organization",
+      "mentoring": "Mentoring",
+      "achievement": "Achievement",
+      "certification": "Certification",
+      "community": "Community"
+    }
   },
   "content": {
     "title": "Content",

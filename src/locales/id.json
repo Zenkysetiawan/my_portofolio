@@ -1,70 +1,88 @@
 {
   "nav": {
     "home": "Beranda",
+    "projects": "Karya",
+    "skills": "Keahlian",
     "about": "Tentang",
-    "projects": "Project",
-    "skills": "Skill",
     "journey": "Perjalanan",
     "content": "Konten",
-    "cv": "CV",
-    "contact": "Kontak"
+    "contact": "Kontak",
+    "hire": "Hire me",
+    "menu": "Buka menu",
+    "themeToLight": "Ganti ke mode terang",
+    "themeToDark": "Ganti ke mode gelap",
+    "prev": "Ke bagian sebelumnya",
+    "next": "Ke bagian berikutnya"
   },
   "hero": {
     "greeting": "Halo, saya",
     "roles": ["AI Software Engineer", "Web Developer", "Tech Content Creator"],
     "description": "Mahasiswa Informatika yang membangun aplikasi web dan mobile, serta terus mendalami AI, machine learning, dan RAG untuk menjadi AI Software Engineer.",
-    "viewProjects": "Lihat Project",
+    "viewProjects": "Lihat Karya",
     "contact": "Kontak",
     "downloadCV": "Download CV",
     "cardAlt": "Kartu ID 3D Zenky Setiawan yang bisa ditarik dan dibalik",
     "dragHint": "Tarik kartunya, klik untuk membalik",
-    "flipCard": "Balik kartu"
+    "flipCard": "Balik kartu",
+    "location": "Bengkulu, ID",
+    "status": "Terbuka untuk freelance"
   },
   "about": {
-    "title": "Tentang Saya",
-    "status": "Mahasiswa S1 Informatika",
-    "paragraphs": [
-      "Saya Zenky Setiawan, mahasiswa S1 Informatika di Universitas Dehasen Bengkulu. Saya suka membangun aplikasi yang benar-benar dipakai orang: mulai dari platform museum digital berbasis QR Code (Smart Museum), aplikasi edukasi lingkungan EcoSphere, aplikasi keuangan pribadi, sampai web marketplace dan e-commerce.",
-      "Di luar kuliah, saya aktif di komunitas teknologi DE CODE Bengkulu sebagai Wakil Ketua Umum dan pernah memimpin tim desain grafis. Bersama dosen, saya juga mempresentasikan EcoSphere kepada siswa SMA di Kepahiang. Saat ini saya mengarahkan diri ke AI, machine learning, dan RAG untuk menjadi AI Software Engineer, sambil berbagi proses belajar lewat konten teknologi."
-    ],
-    "stats": [
-      { "value": "4+", "label": "Project dikerjakan" },
-      { "value": "2", "label": "Sertifikasi Python" },
-      { "value": "Juara 1", "label": "Bootcamp DE CODE 2025" },
-      { "value": "Wakil Ketua", "label": "Umum DE CODE 2025–2026" }
-    ]
+    "title": "Tentang saya",
+    "currently": "Sedang saya kerjakan"
   },
   "projects": {
-    "title": "Project",
-    "demo": "Lihat Demo",
-    "github": "GitHub",
-    "filters": {
+    "title": "Karya pilihan",
+    "subtitle": "Beberapa project yang pernah saya bangun. Klik kartu di tengah untuk membaca cerita di baliknya.",
+    "tabs": {
       "all": "Semua",
       "web": "Web & E-commerce",
-      "system": "Sistem",
+      "sistem": "Sistem",
       "mobile": "Mobile",
-      "ai": "AI/ML/RAG"
+      "ai": "AI / ML / RAG"
     },
-    "empty": {
-      "web": "Project Web & E-commerce sedang dikerjakan. Segera hadir!",
-      "system": "Project Sistem sedang dikerjakan. Segera hadir!",
-      "mobile": "Project Mobile sedang dikerjakan. Segera hadir!",
-      "ai": "Project AI, machine learning, dan RAG sedang dikerjakan. Segera hadir!"
-    }
+    "soon": "Sedang dikerjakan",
+    "viewCase": "Lihat studi kasus",
+    "demo": "Lihat demo",
+    "code": "Kode",
+    "noDemo": "Demo menyusul",
+    "close": "Tutup",
+    "prev": "Project sebelumnya",
+    "next": "Project berikutnya",
+    "overview": "Ringkasan",
+    "features": "Fitur utama",
+    "impact": "Dampak",
+    "stack": "Teknologi",
+    "role": "Peran"
   },
   "skills": {
-    "title": "Skill",
-    "learningNote": "Arah belajar saya menuju AI Software Engineer.",
-    "groups": {
-      "languages": "Bahasa Pemrograman",
-      "frameworks": "Framework & Library",
-      "database": "Database & Cloud",
-      "tools": "Tools & Platform",
-      "learning": "Sedang Dipelajari"
-    }
+    "title": "Yang bisa saya kerjakan",
+    "subtitle": "Dari website sampai aplikasi mobile, dan sedang bergerak ke dunia AI. Ini bidang yang bisa kita kerjakan bersama.",
+    "learningBadge": "Sedang dipelajari",
+    "ctaText": "Punya ide atau butuh bantuan untuk project? Ayo ngobrol.",
+    "ctaButton": "Hubungi saya",
+    "stackLabel": "Teknologi yang saya pakai"
   },
   "journey": {
-    "title": "Perjalanan"
+    "title": "Perjalanan",
+    "subtitle": "Pengalaman, prestasi, sertifikasi, dan pendidikan, dari yang terbaru.",
+    "filters": {
+      "all": "Semua",
+      "experience": "Pengalaman",
+      "achievement": "Prestasi",
+      "certification": "Sertifikasi",
+      "education": "Pendidikan"
+    },
+    "items": "item",
+    "scrollHint": "scroll untuk melihat lainnya",
+    "types": {
+      "education": "Pendidikan",
+      "organization": "Organisasi",
+      "mentoring": "Mentor",
+      "achievement": "Prestasi",
+      "certification": "Sertifikasi",
+      "community": "Pengabdian"
+    }
   },
   "content": {
     "title": "Konten",
