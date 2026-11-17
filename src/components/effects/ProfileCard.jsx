@@ -1,8 +1,5 @@
-import { lazy, Suspense, useState } from "react";
+import { Component, lazy, Suspense } from "react";
 import StaticCard from "./StaticCard";
-
-// Lanyard 3D dimuat belakangan, supaya halaman utama tetap cepat terbuka
-const Lanyard = lazy(() => import("./Lanyard"));
 
 function supportsWebGL() {
   try {
@@ -13,14 +10,52 @@ function supportsWebGL() {
   }
 }
 
-export default function ProfileCard() {
-  const [canUse3D] = useState(supportsWebGL);
+// Dicek sekali saja, begitu file ini pertama dibaca
+const CAN_USE_3D = supportsWebGL();
 
-  if (!canUse3D) return <StaticCard />;
+// Fungsi untuk mengambil file Lanyard (berat) dari server
+const loadLanyard = () => import("./Lanyard");
+const Lanyard = lazy(loadLanyard);
+
+if (CAN_USE_3D) {
+  // Mulai mengunduh SEKARANG, bukan menunggu Hero tampil dulu
+  loadLanyard().catch(() => {}); // kalau gagal, jaring pengaman di bawah yang menangani
+  // Unduh foto lebih awal, supaya sudah siap saat kartu digambar
+  new Image().src = "/images/profile/profile.png";
+}
+
+// Jaring pengaman: kalau Lanyard gagal dimuat atau error,
+// tampilkan kartu foto biasa. Website tidak ikut rusak.
+class Lanyard3DBoundary extends Component {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  render() {
+    return this.state.failed ? <StaticCard /> : this.props.children;
+  }
+}
+
+// Ruang kosong seukuran lanyard, supaya halaman tidak "loncat" saat 3D muncul
+function Placeholder() {
+  return (
+    <div className="flex flex-col items-center" aria-hidden="true">
+      <div className="h-120 w-full md:h-160" />
+      <div className="h-18" />
+    </div>
+  );
+}
+
+export default function ProfileCard() {
+  if (!CAN_USE_3D) return <StaticCard />;
 
   return (
-    <Suspense fallback={<StaticCard />}>
-      <Lanyard />
-    </Suspense>
+    <Lanyard3DBoundary>
+      <Suspense fallback={<Placeholder />}>
+        <Lanyard />
+      </Suspense>
+    </Lanyard3DBoundary>
   );
 }

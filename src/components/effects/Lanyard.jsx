@@ -93,7 +93,8 @@ function Band({ flipped, onFlip, maxSpeed = 50, minSpeed = 10 }) {
     card.current?.wakeUp();
   }, [flipped]);
 
-  useFrame((state, delta) => {
+  useFrame((state, rawDelta) => {
+    const delta = Math.min(rawDelta, 1 / 30);
     // 1) Saat kartu ditarik: kartu mengikuti posisi pointer
     if (dragged) {
       vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
@@ -121,7 +122,7 @@ function Band({ flipped, onFlip, maxSpeed = 50, minSpeed = 10 }) {
         );
         ref.current.lerped.lerp(
           ref.current.translation(),
-          delta * (minSpeed + clamped * (maxSpeed - minSpeed)),
+          Math.min(1, delta * (minSpeed + clamped * (maxSpeed - minSpeed))),
         );
       });
 
@@ -282,10 +283,15 @@ function Band({ flipped, onFlip, maxSpeed = 50, minSpeed = 10 }) {
 export default function Lanyard() {
   const { t } = useLanguage();
   const [flipped, setFlipped] = useState(false);
+  const [ready, setReady] = useState(false);
   const toggleFlip = () => setFlipped((f) => !f);
 
   return (
-    <div className="flex flex-col items-center">
+    <div
+      className={`flex flex-col items-center transition-opacity duration-700 ${
+        ready ? "opacity-100" : "opacity-0"
+      }`}
+    >
       <div
         className="h-120 w-full md:h-160"
         style={fadeTop}
@@ -296,7 +302,10 @@ export default function Lanyard() {
           camera={{ position: [0, 0, 10], fov: 25 }}
           dpr={[1, 2]}
           style={{ touchAction: "pan-y" }}
-          onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}
+          onCreated={({ gl }) => {
+            gl.setClearColor(0x000000, 0);
+            setReady(true); // dunia 3D siap, mulai munculkan perlahan
+          }}
         >
           <ambientLight intensity={Math.PI} />
           <Physics interpolate gravity={[0, -40, 0]} timeStep={1 / 60}>
