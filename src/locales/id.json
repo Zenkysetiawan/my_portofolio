@@ -15,7 +15,10 @@
     "description": "Mahasiswa Informatika yang membangun aplikasi web dan mobile, serta terus mendalami AI, machine learning, dan RAG untuk menjadi AI Software Engineer.",
     "viewProjects": "Lihat Project",
     "contact": "Kontak",
-    "downloadCV": "Download CV"
+    "downloadCV": "Download CV",
+    "cardAlt": "Kartu ID 3D Zenky Setiawan yang bisa ditarik dan dibalik",
+    "dragHint": "Tarik kartunya, klik untuk membalik",
+    "flipCard": "Balik kartu"
   },
   "about": {
     "title": "Tentang Saya",

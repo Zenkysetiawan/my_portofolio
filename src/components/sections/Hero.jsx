@@ -7,6 +7,7 @@ import GlowBackground from "../effects/GlowBackground";
 import { socials } from "../../data/socials";
 import useFileExists from "../../hooks/useFileExists";
 import { cvFiles } from "../../data/cv";
+import ProfileCard from "../effects/ProfileCard";
 
 export default function Hero() {
   const { lang, t } = useLanguage();
@@ -69,19 +70,13 @@ export default function Hero() {
         </motion.div>
 
         {/* Kanan: kartu foto (sementara statis, nanti jadi lanyard 3D) */}
+        {/* Kanan: lanyard 3D */}
         <motion.div
-          className="flex justify-center"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <div className="w-64 overflow-hidden rounded-2xl border border-blue-500/40 bg-slate-900 shadow-2xl shadow-blue-600/30 sm:w-72">
-            <img
-              src="/images/profile/profile.png"
-              alt="Foto Zenky Setiawan"
-              className="aspect-3/4 w-full object-cover"
-            />
-          </div>
+          <ProfileCard />
         </motion.div>
       </div>
     </section>

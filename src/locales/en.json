@@ -15,7 +15,10 @@
     "description": "Informatics student who builds web and mobile applications, while diving deeper into AI, machine learning, and RAG on the path to becoming an AI Software Engineer.",
     "viewProjects": "View Projects",
     "contact": "Contact",
-    "downloadCV": "Download CV"
+    "downloadCV": "Download CV",
+    "cardAlt": "Zenky Setiawan's 3D ID card, draggable and flippable",
+    "dragHint": "Drag the card, click to flip it",
+    "flipCard": "Flip card"
   },
   "about": {
     "title": "About Me",
