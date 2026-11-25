@@ -1,104 +1,75 @@
-import { FiMail, FiArrowUpRight } from "react-icons/fi";
-import { FaWhatsapp } from "react-icons/fa";
-import { useLanguage } from "../../context/LanguageContext";
-import SectionTitle from "../ui/SectionTitle";
-import Reveal from "../ui/Reveal";
-import { contact } from "../../data/contact";
-import { socials } from "../../data/socials";
+import { motion } from 'motion/react'
+import { FaWhatsapp } from 'react-icons/fa'
+import { FiArrowUpRight, FiMail } from 'react-icons/fi'
+import { useLanguage } from '../../context/LanguageContext'
+import { contact } from '../../data/contact'
+import { socials } from '../../data/socials'
+import SectionTitle from '../ui/SectionTitle'
+import ContactForm from '../ui/ContactForm'
+import Comments from '../ui/Comments'
 
-const github = socials.find((social) => social.name === "GitHub");
-const otherSocials = socials.filter((social) => social.name !== "GitHub");
+const reveal = {
+  initial: { opacity: 0, y: 28 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-60px' },
+}
 
 export default function Contact() {
-  const { lang, t } = useLanguage();
+  const { lang, t } = useLanguage()
 
   const cards = [
+    { name: 'Email', value: contact.email, href: `mailto:${contact.email}`, icon: FiMail },
     {
-      key: "email",
-      icon: FiMail,
-      label: "Email",
-      value: contact.email,
-      href: `mailto:${contact.email}`,
-      external: false,
-    },
-    {
-      key: "whatsapp",
+      name: 'WhatsApp',
+      value: `+${contact.whatsapp}`,
+      href: `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(contact.whatsappText[lang])}`,
       icon: FaWhatsapp,
-      label: "WhatsApp",
-      value: t("contact.whatsappCta"),
-      href: `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(
-        contact.whatsappMessage[lang],
-      )}`,
-      external: true,
     },
-    {
-      key: "github",
-      icon: github.icon,
-      label: "GitHub",
-      value: github.url.replace("https://", ""),
-      href: github.url,
-      external: true,
-    },
-  ];
+    ...socials.map((s) => ({ name: s.name, value: s.url.replace(/^https?:\/\/(www\.)?/, ''), href: s.url, icon: s.icon })),
+  ]
 
   return (
-    <section id="contact" className="py-24">
-      <div className="mx-auto max-w-6xl px-4">
-        <SectionTitle>{t("contact.title")}</SectionTitle>
+    <section id="contact" className="relative mx-auto max-w-6xl overflow-x-clip px-5 py-28">
+      <motion.div {...reveal} transition={{ duration: 0.6 }}>
+        <SectionTitle index="06" label={t('nav.contact')} title={t('contact.title')} subtitle={t('contact.subtitle')} />
+      </motion.div>
 
-        <Reveal>
-          <h3 className="max-w-2xl text-2xl font-bold sm:text-3xl">
-            {t("contact.heading")}
-          </h3>
-          <p className="mt-3 max-w-2xl text-slate-600 dark:text-slate-300">
-            {t("contact.subtitle")}
-          </p>
-        </Reveal>
-
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {cards.map(({ key, icon: Icon, label, value, href, external }, i) => (
-            <Reveal key={key} delay={i * 0.1} className="h-full">
-              <a
-                href={href}
-                target={external ? "_blank" : undefined}
-                rel={external ? "noreferrer" : undefined}
-                className="group flex h-full flex-col gap-4 rounded-2xl border border-slate-200 bg-slate-50 p-6 transition duration-300 hover:-translate-y-1 hover:border-blue-500 hover:shadow-xl hover:shadow-blue-600/20 dark:border-white/10 dark:bg-white/5"
-              >
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-2xl text-blue-500 transition group-hover:bg-blue-600 group-hover:text-white">
-                  <Icon />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-sm text-slate-500 dark:text-slate-400">
-                    {label}
-                  </p>
-                  <p className="mt-1 break-all font-semibold">{value}</p>
-                </div>
-                <FiArrowUpRight className="mt-auto self-end text-xl text-slate-400 transition group-hover:text-blue-500" />
-              </a>
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal className="mt-10">
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            {t("contact.orFollow")}
-          </p>
-          <div className="mt-3 flex gap-4">
-            {otherSocials.map(({ name, url, icon: Icon }) => (
-              <a
-                key={name}
-                href={url}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={name}
-                className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-300 text-xl text-slate-600 transition hover:-translate-y-1 hover:border-blue-500 hover:text-blue-500 dark:border-white/20 dark:text-slate-300"
-              >
+      {/* Temukan saya */}
+      <p className="mb-4 flex items-center gap-3 font-mono text-xs font-medium tracking-[0.2em] text-muted uppercase">
+        <span className="h-px w-8 bg-hi" />
+        {t('contact.findMe')}
+      </p>
+      <ul className="mb-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {cards.map(({ name, value, href, icon: Icon }, i) => (
+          <motion.li key={name} {...reveal} transition={{ duration: 0.4, delay: (i % 3) * 0.06 }}>
+            <a
+              href={href}
+              target={href.startsWith('mailto') ? undefined : '_blank'}
+              rel="noreferrer"
+              className="group flex items-center gap-4 rounded-2xl border border-line bg-surface/70 p-4 backdrop-blur transition hover:-translate-y-0.5 hover:border-accent/70"
+            >
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-accent text-lg text-accent-ink">
                 <Icon />
-              </a>
-            ))}
-          </div>
-        </Reveal>
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block font-display text-lg leading-tight font-bold text-ink">{name}</span>
+                <span className="block truncate font-mono text-[11px] text-muted">{value}</span>
+              </span>
+              <FiArrowUpRight className="text-muted transition group-hover:text-hi" />
+            </a>
+          </motion.li>
+        ))}
+      </ul>
+
+      {/* Form pesan + komentar */}
+      <div className="grid gap-5 lg:grid-cols-2">
+        <motion.div {...reveal} transition={{ duration: 0.5 }}>
+          <ContactForm />
+        </motion.div>
+        <motion.div {...reveal} transition={{ duration: 0.5, delay: 0.08 }}>
+          <Comments />
+        </motion.div>
       </div>
     </section>
-  );
+  )
 }

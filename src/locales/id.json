@@ -84,14 +84,6 @@
       "community": "Pengabdian"
     }
   },
-  "content": {
-    "title": "Konten",
-    "subtitle": "Saya berbagi pembelajaran seputar teknologi dan coding lewat video pendek.",
-    "followOn": "Ikuti di",
-    "watchOn": "Tonton di",
-    "play": "Putar video",
-    "empty": "Video pertama sedang disiapkan. Sementara itu, kunjungi profil saya di TikTok dan Instagram!"
-  },
   "cv": {
     "title": "CV",
     "subtitle": "Ringkasan pengalaman, skill, dan prestasi saya dalam satu dokumen.",
@@ -101,21 +93,44 @@
     "missing": "CV versi Indonesia belum tersedia.",
     "viewOther": "Lihat versi Indonesia"
   },
+  "content": {
+    "title": "Konten teknologi",
+    "subtitle": "Saya juga membuat konten singkat yang menjelaskan teknologi dengan bahasa sederhana.",
+    "emptyTitle": "Konten segera hadir",
+    "emptyText": "Video pertama sedang dibuat. Ikuti akun saya supaya tidak ketinggalan.",
+    "follow": "Ikuti saya",
+    "play": "Putar video",
+    "open": "Buka di aplikasi"
+  },
   "contact": {
-    "title": "Kontak",
-    "heading": "Mari berdiskusi dan membangun sesuatu bersama.",
-    "subtitle": "Terbuka untuk project freelance, kolaborasi, dan peluang magang atau kerja. Pilih jalur yang paling nyaman untuk Anda.",
-    "whatsappCta": "Chat lewat WhatsApp",
-    "orFollow": "Atau ikuti proses belajar dan konten saya:"
+    "title": "Ayo bekerja sama",
+    "subtitle": "Punya project, pertanyaan, atau sekadar ingin menyapa? Pilih cara yang paling nyaman buat kamu.",
+    "findMe": "Temukan saya",
+    "formTitle": "Hubungi saya",
+    "formText": "Tulis pesanmu. Saya akan membalas lewat kontak yang kamu isi.",
+    "formOff": "Form pesan belum aktif. Silakan hubungi lewat Email atau WhatsApp di atas.",
+    "yourName": "Nama kamu",
+    "yourContact": "Email atau nomor WhatsApp",
+    "yourMessage": "Pesan kamu",
+    "send": "Kirim pesan",
+    "sending": "Mengirim…",
+    "sent": "Terima kasih! Pesanmu sudah terkirim.",
+    "comments": "Komentar",
+    "commentsOff": "Kolom komentar belum aktif.",
+    "yourComment": "Tulis komentar…",
+    "sendComment": "Kirim",
+    "commentSent": "Terima kasih! Komentarmu akan tampil setelah disetujui.",
+    "noComments": "Belum ada komentar. Jadilah yang pertama!",
+    "wait": "Tunggu sebentar sebelum mengirim lagi.",
+    "error": "Gagal mengirim. Coba lagi nanti."
   },
   "footer": {
-    "about": "Portofolio pribadi yang saya bangun dari nol dengan React. Setiap project di sini bisa menjadi gambaran untuk kebutuhan website atau sistem Anda.",
-    "navigation": "Navigasi",
+    "tagline": "Mahasiswa Informatika yang membangun aplikasi web dan mobile, menuju AI Software Engineer.",
+    "status": "Terbuka untuk freelance",
+    "navigate": "Navigasi",
     "connect": "Terhubung",
-    "location": "Bengkulu, Indonesia",
-    "available": "Terbuka untuk freelance & kolaborasi",
-    "rights": "Hak cipta dilindungi.",
-    "builtWith": "Dibuat dengan React, Vite, Tailwind CSS & Motion",
-    "backToTop": "Kembali ke atas"
+    "rights": "Hak cipta dilindungi",
+    "built": "Dibuat dengan React, Tailwind, dan Motion",
+    "top": "Ke atas"
   }
 }

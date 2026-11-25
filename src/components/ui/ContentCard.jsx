@@ -1,70 +1,64 @@
-import { useState } from "react";
-import { FaTiktok, FaInstagram } from "react-icons/fa";
-import { FiPlay, FiExternalLink } from "react-icons/fi";
-import { useLanguage } from "../../context/LanguageContext";
-import { getEmbedUrl } from "../../utils/embed";
+import { useState } from 'react'
+import { FaInstagram, FaTiktok } from 'react-icons/fa'
+import { FiPlay, FiExternalLink } from 'react-icons/fi'
 
-const platforms = {
-  tiktok: { label: "TikTok", icon: FaTiktok },
-  instagram: { label: "Instagram", icon: FaInstagram },
-};
+// Dari link -> alamat embed. null kalau link tidak dikenali.
+function embedUrl(platform, url) {
+  if (platform === 'tiktok') {
+    const m = url.match(/video\/(\d+)/)
+    return m ? `https://www.tiktok.com/embed/v2/${m[1]}` : null
+  }
+  const m = url.match(/instagram\.com\/(p|reel|reels)\/([A-Za-z0-9_-]+)/)
+  return m ? `https://www.instagram.com/${m[1] === 'reels' ? 'reel' : m[1]}/${m[2]}/embed` : null
+}
 
-export default function ContentCard({ item }) {
-  const { lang, t } = useLanguage();
-  const [playing, setPlaying] = useState(false);
-
-  const { label, icon: Icon } = platforms[item.platform];
-  const embedUrl = getEmbedUrl(item.platform, item.url);
-  const title = item.title[lang];
-
-  const handlePlay = () => {
-    if (embedUrl) setPlaying(true);
-    else window.open(item.url, "_blank", "noreferrer");
-  };
+// Video baru dimuat SETELAH diklik (click-to-load), supaya halaman tetap ringan
+export default function ContentCard({ item, title, t }) {
+  const [loaded, setLoaded] = useState(false)
+  const Icon = item.platform === 'tiktok' ? FaTiktok : FaInstagram
+  const src = embedUrl(item.platform, item.url)
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white dark:border-white/10 dark:bg-white/5">
-      <div className="relative h-150 w-full bg-slate-900">
-        {playing ? (
+    <article className="overflow-hidden rounded-3xl border border-line bg-surface/70 backdrop-blur">
+      <div className="relative aspect-9/16 max-h-[520px] w-full bg-accent/20">
+        {loaded && src ? (
           <iframe
-            src={embedUrl}
+            src={src}
             title={title}
-            className="absolute inset-0 h-full w-full"
-            allow="autoplay; encrypted-media; fullscreen"
-            allowFullScreen
             loading="lazy"
+            allow="encrypted-media; fullscreen"
+            className="absolute inset-0 h-full w-full"
           />
         ) : (
-          <button
-            type="button"
-            onClick={handlePlay}
-            aria-label={t("content.play")}
-            className="group absolute inset-0 flex items-center justify-center bg-cover bg-center"
-            style={
-              item.thumbnail
-                ? { backgroundImage: `url(${item.thumbnail})` }
-                : undefined
-            }
-          >
-            <span className="absolute inset-0 bg-linear-to-br from-blue-600/40 to-purple-600/40" />
-            <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-2xl text-blue-600 transition group-hover:scale-110">
-              <FiPlay />
-            </span>
-          </button>
+          <>
+            {item.thumb && <img src={item.thumb} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />}
+            <button
+              type="button"
+              onClick={() => (src ? setLoaded(true) : window.open(item.url, '_blank', 'noreferrer'))}
+              aria-label={`${t('content.play')}: ${title}`}
+              className="absolute inset-0 grid place-items-center bg-black/30 transition hover:bg-black/20"
+            >
+              <span className="grid h-16 w-16 place-items-center rounded-full bg-hi text-[#0b1020] shadow-xl">
+                <FiPlay size={26} className="translate-x-0.5" />
+              </span>
+            </button>
+          </>
         )}
       </div>
-
-      <div className="flex flex-1 flex-col gap-3 p-4">
-        <h3 className="font-semibold">{title}</h3>
+      <div className="flex items-center justify-between gap-3 p-5">
+        <p className="flex items-center gap-2 font-display text-lg font-bold text-ink">
+          <Icon className="text-hi" /> {title}
+        </p>
         <a
           href={item.url}
           target="_blank"
           rel="noreferrer"
-          className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-blue-500 hover:text-blue-400"
+          aria-label={t('content.open')}
+          className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line text-muted transition hover:border-hi hover:text-hi"
         >
-          <Icon /> {t("content.watchOn")} {label} <FiExternalLink />
+          <FiExternalLink size={15} />
         </a>
       </div>
     </article>
-  );
+  )
 }

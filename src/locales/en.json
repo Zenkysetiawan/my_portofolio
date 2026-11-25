@@ -84,14 +84,6 @@
       "community": "Community"
     }
   },
-  "content": {
-    "title": "Content",
-    "subtitle": "I share what I learn about technology and coding through short videos.",
-    "followOn": "Follow on",
-    "watchOn": "Watch on",
-    "play": "Play video",
-    "empty": "My first video is on its way. In the meantime, visit my profiles on TikTok and Instagram!"
-  },
   "cv": {
     "title": "CV",
     "subtitle": "A summary of my experience, skills, and achievements in one document.",
@@ -101,21 +93,44 @@
     "missing": "The English CV is coming soon.",
     "viewOther": "View the Indonesian version"
   },
+  "content": {
+    "title": "Tech content",
+    "subtitle": "I also make short content that explains technology in simple words.",
+    "emptyTitle": "Content coming soon",
+    "emptyText": "The first video is in the works. Follow my accounts so you don't miss it.",
+    "follow": "Follow me",
+    "play": "Play video",
+    "open": "Open in app"
+  },
   "contact": {
-    "title": "Contact",
-    "heading": "Let's talk and build something together.",
-    "subtitle": "Open to freelance projects, collaborations, and internship or job opportunities. Pick whichever channel suits you best.",
-    "whatsappCta": "Chat on WhatsApp",
-    "orFollow": "Or follow my learning journey and content:"
+    "title": "Let's work together",
+    "subtitle": "Have a project, a question, or just want to say hi? Pick whichever way suits you best.",
+    "findMe": "Find me",
+    "formTitle": "Get in touch",
+    "formText": "Write your message. I'll reply through the contact you provide.",
+    "formOff": "The message form isn't active yet. Please reach me by Email or WhatsApp above.",
+    "yourName": "Your name",
+    "yourContact": "Email or WhatsApp number",
+    "yourMessage": "Your message",
+    "send": "Send message",
+    "sending": "Sending…",
+    "sent": "Thank you! Your message has been sent.",
+    "comments": "Comments",
+    "commentsOff": "Comments aren't active yet.",
+    "yourComment": "Write a comment…",
+    "sendComment": "Send",
+    "commentSent": "Thank you! Your comment will appear after approval.",
+    "noComments": "No comments yet. Be the first!",
+    "wait": "Please wait a moment before sending again.",
+    "error": "Failed to send. Please try again later."
   },
   "footer": {
-    "about": "A personal portfolio I built from scratch with React. Every project here can serve as a reference for your website or system needs.",
-    "navigation": "Navigation",
+    "tagline": "Informatics student building web and mobile apps, on the way to AI Software Engineer.",
+    "status": "Open for freelance",
+    "navigate": "Navigate",
     "connect": "Connect",
-    "location": "Bengkulu, Indonesia",
-    "available": "Open for freelance & collaboration",
-    "rights": "All rights reserved.",
-    "builtWith": "Built with React, Vite, Tailwind CSS & Motion",
-    "backToTop": "Back to top"
+    "rights": "All rights reserved",
+    "built": "Built with React, Tailwind, and Motion",
+    "top": "Back to top"
   }
 }

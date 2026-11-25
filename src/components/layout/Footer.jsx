@@ -1,108 +1,91 @@
-import { FiArrowUp, FiMapPin } from "react-icons/fi";
-import { useLanguage } from "../../context/LanguageContext";
-import { SECTION_IDS } from "./Navbar";
-import { socials } from "../../data/socials";
+import { useEffect, useState } from 'react'
+import { FiArrowUp } from 'react-icons/fi'
+import { useLanguage } from '../../context/LanguageContext'
+import { socials } from '../../data/socials'
+import { SECTION_IDS } from './Navbar'
+
+// Jam Bengkulu (WIB), diperbarui tiap 30 detik
+function useBengkuluTime() {
+  const fmt = () =>
+    new Intl.DateTimeFormat('id-ID', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Jakarta' })
+      .format(new Date())
+      .replace('.', ':')
+  const [time, setTime] = useState(fmt)
+  useEffect(() => {
+    const id = setInterval(() => setTime(fmt()), 30000)
+    return () => clearInterval(id)
+  }, [])
+  return time
+}
 
 export default function Footer() {
-  const { t } = useLanguage();
-  const year = new Date().getFullYear();
-
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  const { t } = useLanguage()
+  const time = useBengkuluTime()
+  const go = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <footer className="relative bg-slate-50 dark:bg-slate-900/50">
-      {/* Garis gradasi tipis di bagian atas */}
-      <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-blue-500/70 to-transparent" />
-
-      <div className="mx-auto max-w-6xl px-4 py-14">
-        <div className="grid gap-10 md:grid-cols-3">
-          {/* Kolom 1: identitas */}
-          <div>
-            <a
-              href="#home"
-              className="bg-linear-to-r from-blue-500 to-purple-500 bg-clip-text text-3xl font-bold text-transparent"
-            >
-              Zenky Setiawan
-            </a>
-            <p className="mt-2 text-sm font-medium text-slate-700 dark:text-slate-200">
-              Zenky Setiawan
-            </p>
-            <p className="mt-1 text-sm text-purple-500 dark:text-purple-400">
-              {t("hero.roles").join(" · ")}
-            </p>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-              {t("footer.about")}
-            </p>
-          </div>
-
-          {/* Kolom 2: navigasi */}
-          <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider">
-              {t("footer.navigation")}
-            </h4>
-            <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
-              {SECTION_IDS.map((id) => (
-                <li key={id}>
-                  <a
-                    href={`#${id}`}
-                    className="text-slate-600 transition hover:text-blue-500 dark:text-slate-400"
-                  >
-                    {t(`nav.${id}`)}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Kolom 3: terhubung */}
-          <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider">
-              {t("footer.connect")}
-            </h4>
-            <div className="mt-4 flex gap-3">
-              {socials.map(({ name, url, icon: Icon }) => (
-                <a
-                  key={name}
-                  href={url}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={name}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 text-lg text-slate-600 transition hover:-translate-y-1 hover:border-blue-500 hover:text-blue-500 dark:border-white/20 dark:text-slate-300"
-                >
-                  <Icon />
-                </a>
-              ))}
-            </div>
-
-            <p className="mt-5 flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-              <FiMapPin className="text-blue-500" /> {t("footer.location")}
-            </p>
-
-            <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1 text-xs font-medium text-green-600 dark:text-green-400">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
-              </span>
-              {t("footer.available")}
-            </p>
-          </div>
+    <footer className="relative border-t border-line bg-bg/60 backdrop-blur">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
+        {/* Merek */}
+        <div>
+          <p className="font-display text-3xl font-extrabold text-ink">
+            Zenky Setiawan<span className="text-hi">.</span>
+          </p>
+          <p className="mt-3 max-w-sm leading-relaxed text-muted">{t('footer.tagline')}</p>
+          <p className="mt-5 flex items-center gap-2.5 font-mono text-[11px] tracking-[0.16em] text-muted uppercase">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-hi opacity-70" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-hi" />
+            </span>
+            {t('footer.status')}
+          </p>
+          <p className="mt-2 font-mono text-[11px] tracking-[0.16em] text-muted uppercase">
+            Bengkulu · {time} WIB
+          </p>
         </div>
 
-        {/* Baris paling bawah */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-200 pt-6 text-sm text-slate-500 sm:flex-row dark:border-white/10 dark:text-slate-400">
-          <p>
-            © {year} Zenky Setiawan. {t("footer.rights")}
-          </p>
-          <p>{t("footer.builtWith")}</p>
+        {/* Navigasi */}
+        <nav aria-label="Footer">
+          <p className="mb-4 font-mono text-[11px] font-semibold tracking-[0.2em] text-hi uppercase">{t('footer.navigate')}</p>
+          <ul className="grid gap-2.5">
+            {SECTION_IDS.map((id) => (
+              <li key={id}>
+                <button type="button" onClick={() => go(id)} className="text-muted transition hover:text-ink">
+                  {t(`nav.${id}`)}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* Sosial */}
+        <div>
+          <p className="mb-4 font-mono text-[11px] font-semibold tracking-[0.2em] text-hi uppercase">{t('footer.connect')}</p>
+          <ul className="grid gap-2.5">
+            {socials.map(({ name, url, icon: Icon }) => (
+              <li key={name}>
+                <a href={url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2.5 text-muted transition hover:text-ink">
+                  <Icon /> {name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="border-t border-line">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 py-5 font-mono text-[11px] tracking-[0.12em] text-muted uppercase">
+          <p>© {new Date().getFullYear()} Zenky Setiawan · {t('footer.rights')}</p>
+          <p className="hidden sm:block">{t('footer.built')}</p>
           <button
-            onClick={scrollToTop}
-            className="group inline-flex items-center gap-2 rounded-full border border-blue-500/50 px-4 py-2 font-semibold text-blue-500 transition hover:-translate-y-0.5 hover:bg-blue-500 hover:text-white"
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 uppercase transition hover:border-hi hover:text-hi"
           >
-            {t("footer.backToTop")}
-            <FiArrowUp className="transition group-hover:-translate-y-0.5" />
+            {t('footer.top')} <FiArrowUp />
           </button>
         </div>
       </div>
     </footer>
-  );
+  )
 }
