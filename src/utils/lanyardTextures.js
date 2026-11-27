@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 
 const CARD_W = 1024
-const CARD_H = 1474
+const CARD_H = 1457
 
 // Font yang sama dengan website (sudah dipasang lewat fontsource)
 const DISPLAY = '"Bricolage Grotesque Variable", system-ui, sans-serif'
@@ -180,6 +180,29 @@ function paintBack(ctx) {
   spacedText(ctx, status, startX + 44, 1341, 3)
 }
 
+// >>> Desain kartu buatan sendiri <<<
+// Taruh dua gambar di folder public/images/card/ dengan nama ini.
+// Kalau gambarnya tidak ada, otomatis dipakai desain bawaan (digambar lewat kode di atas).
+const FRONT_URL = '/images/card/front.jpg'
+const BACK_URL = '/images/card/back.jpg'
+
+function loadImage(url) {
+  return new Promise((resolve) => {
+    const img = new Image()
+    img.onload = () => resolve(img)
+    img.onerror = () => resolve(null) // gagal/tidak ada -> null, bukan error
+    img.src = url
+  })
+}
+
+// Gambar diisi penuh ke kartu (seperti object-fit: cover), kelebihan di tepi dipotong rata
+function drawCover(ctx, img) {
+  const scale = Math.max(CARD_W / img.width, CARD_H / img.height)
+  const w = img.width * scale
+  const h = img.height * scale
+  ctx.drawImage(img, (CARD_W - w) / 2, (CARD_H - h) / 2, w, h)
+}
+
 // Membuat tekstur depan dan belakang kartu
 export function createCardTextures(photoUrl) {
   const front = makeCanvas(CARD_W, CARD_H)
@@ -187,70 +210,75 @@ export function createCardTextures(photoUrl) {
   const frontTexture = makeTexture(front.canvas)
   const backTexture = makeTexture(back.canvas)
 
-  let photo = null
-  const repaint = () => {
-    paintFront(front.ctx, photo)
-    paintBack(back.ctx)
+  // Sementara gambar dimuat, kartu berupa warna polos (tidak ada kedipan desain lain)
+  front.ctx.fillStyle = COBALT
+  front.ctx.fillRect(0, 0, CARD_W, CARD_H)
+  back.ctx.fillStyle = INK
+  back.ctx.fillRect(0, 0, CARD_W, CARD_H)
+
+  Promise.all([loadImage(FRONT_URL), loadImage(BACK_URL)]).then(async ([f, b]) => {
+    // Desain bawaan butuh font dan foto, jadi disiapkan hanya kalau diperlukan
+    if (!f || !b) {
+      await Promise.all([
+        document.fonts.load(`800 80px ${DISPLAY}`),
+        document.fonts.load(`600 30px ${MONO}`),
+      ]).catch(() => {})
+    }
+
+    if (f) drawCover(front.ctx, f)
+    else paintFront(front.ctx, await loadImage(photoUrl))
+
+    if (b) drawCover(back.ctx, b)
+    else paintBack(back.ctx)
+
     frontTexture.needsUpdate = true
     backTexture.needsUpdate = true
-  }
-
-  repaint()
-
-  // Gambar ulang setelah foto DAN font selesai dimuat
-  const img = new Image()
-  img.onload = () => {
-    photo = img
-    repaint()
-  }
-  img.src = photoUrl
-
-  Promise.all([
-    document.fonts.load(`800 80px ${DISPLAY}`),
-    document.fonts.load(`600 30px ${MONO}`),
-  ])
-    .then(repaint)
-    .catch(() => {})
+  })
 
   return { front: frontTexture, back: backTexture }
 }
 
-// Tali (strap): kobalt solid dengan tulisan amber
-export function createStrapTexture() {
-  const { canvas, ctx } = makeCanvas(256, 128)
+// >>> Desain tali buatan sendiri (opsional) <<<
+// Taruh di public/images/card/strap.png. Kalau tidak ada, dipakai desain bawaan.
+// Gambar ini diulang 3 kali di sepanjang tali, jadi sisi kiri dan kanannya harus nyambung.
+const STRAP_URL = '/images/card/strap.png'
+const STRAP_W = 1680
+const STRAP_H = 330
+// Berapa kali gambar tali diulang sepanjang tali (dipakai Lanyard.jsx)
+export const STRAP_REPEAT = 2.4
 
+// Desain tali bawaan: kobalt solid dengan tulisan amber
+function paintStrap(ctx) {
   ctx.fillStyle = COBALT
-  ctx.fillRect(0, 0, 256, 128)
-
+  ctx.fillRect(0, 0, STRAP_W, STRAP_H)
   ctx.fillStyle = 'rgba(255,255,255,0.45)'
-  ctx.fillRect(0, 10, 256, 4)
-  ctx.fillRect(0, 114, 256, 4)
-
+  ctx.fillRect(0, 26, STRAP_W, 10)
+  ctx.fillRect(0, STRAP_H - 36, STRAP_W, 10)
   ctx.fillStyle = AMBER
-  ctx.font = `800 54px ${DISPLAY}`
+  ctx.font = `800 150px ${DISPLAY}`
   ctx.textAlign = 'center'
   ctx.textBaseline = 'middle'
-  ctx.fillText('ZEN •', 128, 66)
+  ctx.fillText('ZEN •', STRAP_W / 2, STRAP_H / 2 + 6)
+}
+
+export function createStrapTexture() {
+  const { canvas, ctx } = makeCanvas(STRAP_W, STRAP_H)
+  ctx.fillStyle = COBALT
+  ctx.fillRect(0, 0, STRAP_W, STRAP_H)
 
   const texture = makeTexture(canvas)
   texture.wrapS = THREE.RepeatWrapping
   texture.wrapT = THREE.RepeatWrapping
 
-  // Gambar ulang tulisan tali setelah font siap
-  document.fonts
-    .load(`800 54px ${DISPLAY}`)
-    .then(() => {
-      ctx.fillStyle = COBALT
-      ctx.fillRect(0, 0, 256, 128)
-      ctx.fillStyle = 'rgba(255,255,255,0.45)'
-      ctx.fillRect(0, 10, 256, 4)
-      ctx.fillRect(0, 114, 256, 4)
-      ctx.fillStyle = AMBER
-      ctx.font = `800 54px ${DISPLAY}`
-      ctx.fillText('ZEN •', 128, 66)
-      texture.needsUpdate = true
-    })
-    .catch(() => {})
+  loadImage(STRAP_URL).then(async (img) => {
+    if (img) {
+      ctx.drawImage(img, 0, 0, STRAP_W, STRAP_H)
+    } else {
+      await document.fonts.load(`800 54px ${DISPLAY}`).catch(() => {})
+      paintStrap(ctx)
+    }
+    texture.needsUpdate = true
+  })
 
   return texture
 }

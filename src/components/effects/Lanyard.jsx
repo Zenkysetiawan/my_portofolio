@@ -16,6 +16,7 @@ import { useLanguage } from '../../context/LanguageContext'
 import {
   createCardTextures,
   createStrapTexture,
+  STRAP_REPEAT,
 } from '../../utils/lanyardTextures'
 
 // Daftarkan "alat gambar tali" supaya bisa dipakai sebagai tag JSX
@@ -26,6 +27,10 @@ const vec = new THREE.Vector3()
 const dir = new THREE.Vector3()
 const quat = new THREE.Quaternion()
 const euler = new THREE.Euler()
+
+// Kecerahan gambar kartu: #ffffff = warna asli desainmu, makin gelap = makin redup.
+// Kalau desainmu terlihat terlalu redup, naikkan (misal #b8b8b8). Kalau terlihat pucat/silau, turunkan.
+const FACE_COLOR = '#d6d6d6'
 
 // Bagian atas wadah dibuat memudar, jadi tali seolah muncul dari ketiadaan
 const fadeTop = {
@@ -195,7 +200,7 @@ function Band({ flipped, onFlip, maxSpeed = 50, minSpeed = 10 }) {
             {/* Badan kartu */}
             <RoundedBox args={[1.6, 2.25, 0.03]} radius={0.06} smoothness={4}>
               <meshPhysicalMaterial
-                color="#0b1020"
+                color="#0a1840"
                 clearcoat={1}
                 clearcoatRoughness={0.15}
                 roughness={0.4}
@@ -204,26 +209,26 @@ function Band({ flipped, onFlip, maxSpeed = 50, minSpeed = 10 }) {
             </RoundedBox>
 
             {/* Sisi depan */}
-            <mesh position={[0, 0, 0.0155]}>
-              <planeGeometry args={[1.48, 2.13]} />
+            <mesh position={[0, 0, 0.0158]}>
+              <planeGeometry args={[1.54, 2.19]} />
               <meshPhysicalMaterial
                 map={textures.front}
-                color="#8a8a8a"
-                clearcoat={0.25}
-                clearcoatRoughness={0.25}
+                color={FACE_COLOR}
+                clearcoat={0.1}
+                clearcoatRoughness={0.4}
                 roughness={0.5}
                 metalness={0}
               />
             </mesh>
 
             {/* Sisi belakang */}
-            <mesh position={[0, 0, -0.0155]} rotation={[0, Math.PI, 0]}>
-              <planeGeometry args={[1.48, 2.13]} />
+            <mesh position={[0, 0, -0.0158]} rotation={[0, Math.PI, 0]}>
+              <planeGeometry args={[1.54, 2.19]} />
               <meshPhysicalMaterial
                 map={textures.back}
-                color="#8a8a8a"
-                clearcoat={0.25}
-                clearcoatRoughness={0.25}
+                color={FACE_COLOR}
+                clearcoat={0.1}
+                clearcoatRoughness={0.4}
                 roughness={0.5}
                 metalness={0}
               />
@@ -250,8 +255,8 @@ function Band({ flipped, onFlip, maxSpeed = 50, minSpeed = 10 }) {
           resolution={[width, height]}
           useMap
           map={strap}
-          repeat={[-3, 1]}
-          lineWidth={0.5}
+          repeat={[-STRAP_REPEAT, 1]}
+          lineWidth={1.4}
         />
       </mesh>
     </>
