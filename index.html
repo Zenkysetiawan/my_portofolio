@@ -2,9 +2,65 @@
 <html lang="id" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zenky Setiawan — Portfolio</title>
+
+    <!-- Judul & deskripsi (yang tampil di Google dan tab browser) -->
+    <title>Zenky Setiawan — AI Software Engineer &amp; Web Developer</title>
+    <meta
+      name="description"
+      content="Zenky Setiawan (Zen) — mahasiswa Informatika yang membangun aplikasi web dan mobile, menuju AI Software Engineer. Terbuka untuk freelance."
+    />
+    <meta name="author" content="Zenky Setiawan" />
+    <link rel="canonical" href="https://my-portofolio-zen.vercel.app/" />
+
+    <!-- Ikon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#070a13" />
+
+    <!-- Pratinjau saat link dibagikan (WhatsApp, LinkedIn, Facebook, dll.) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Zenky Setiawan" />
+    <meta property="og:title" content="Zenky Setiawan — AI Software Engineer &amp; Web Developer" />
+    <meta
+      property="og:description"
+      content="Mahasiswa Informatika yang membangun aplikasi web dan mobile, menuju AI Software Engineer. Terbuka untuk freelance."
+    />
+    <meta property="og:url" content="https://my-portofolio-zen.vercel.app/" />
+    <meta property="og:image" content="https://my-portofolio-zen.vercel.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Zenky Setiawan — AI Software Engineer, Web, Mobile" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- Pratinjau di X (Twitter) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Zenky Setiawan — AI Software Engineer &amp; Web Developer" />
+    <meta
+      name="twitter:description"
+      content="Mahasiswa Informatika yang membangun aplikasi web dan mobile, menuju AI Software Engineer."
+    />
+    <meta name="twitter:image" content="https://my-portofolio-zen.vercel.app/og.png" />
+
+    <!-- Data terstruktur: membantu Google paham ini halaman profil seseorang -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Zenky Setiawan",
+        "alternateName": "Zen",
+        "url": "https://my-portofolio-zen.vercel.app/",
+        "image": "https://my-portofolio-zen.vercel.app/og.png",
+        "jobTitle": "AI Software Engineer",
+        "description": "Mahasiswa Informatika yang membangun aplikasi web dan mobile, menuju AI Software Engineer.",
+        "address": { "@type": "PostalAddress", "addressLocality": "Bengkulu", "addressCountry": "ID" },
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Universitas Dehasen Bengkulu" },
+        "sameAs": ["https://github.com/Zenkysetiawan"]
+      }
+    </script>
+
     <script>
       try {
         var t = localStorage.getItem('theme') || 'dark'

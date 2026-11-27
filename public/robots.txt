@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://my-portofolio-zen.vercel.app/sitemap.xml
