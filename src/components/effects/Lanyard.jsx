@@ -22,9 +22,25 @@ import {
 // Daftarkan "alat gambar tali" supaya bisa dipakai sebagai tag JSX
 extend({ MeshLineGeometry, MeshLineMaterial })
 
+// Titik tali menempel di kartu (tinggi dari pusat kartu). Berada DI DALAM klip logam,
+// jadi ujung tali tersembunyi di balik klip dan tidak terlihat runcing.
+const ANCHOR_Y = 1.28
+
+// Jarak maksimal kartu dari titik gantung saat ditarik. Tali totalnya 3 satuan,
+// jadi kartu tidak boleh ditarik lebih jauh dari itu (kalau dipaksa, sambungan kacau).
+const HANG_POINT = new THREE.Vector3(0, 4, 0)
+const MAX_PULL = 2.9
+
+// Bola-bola tali dibuat lebih padat supaya massanya tidak terlalu jauh dari kartu.
+// Selisih massa yang ekstrem membuat sambungan goyang.
+const SEGMENT_DENSITY = 14
+
 // Wadah sementara untuk hitungan (dipakai ulang, jadi hemat memori)
 const vec = new THREE.Vector3()
 const dir = new THREE.Vector3()
+const target = new THREE.Vector3()
+const pull = new THREE.Vector3()
+const anchorOffset = new THREE.Vector3(0, ANCHOR_Y, 0)
 const quat = new THREE.Quaternion()
 const euler = new THREE.Euler()
 
@@ -78,7 +94,7 @@ function Band({ flipped, onFlip, maxSpeed = 50, minSpeed = 10 }) {
   useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1])
   useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1])
   // Ujung tali menempel di bagian atas kartu
-  useSphericalJoint(j3, card, [[0, 0, 0], [0, 1.35, 0]])
+  useSphericalJoint(j3, card, [[0, 0, 0], [0, ANCHOR_Y, 0]])
 
   // Kursor berubah jadi tangan saat di atas kartu
   useEffect(() => {
@@ -106,11 +122,14 @@ function Band({ flipped, onFlip, maxSpeed = 50, minSpeed = 10 }) {
       dir.copy(vec).sub(state.camera.position).normalize()
       vec.add(dir.multiplyScalar(state.camera.position.length()))
       ;[card, j1, j2, j3, fixed].forEach((ref) => ref.current?.wakeUp())
-      card.current?.setNextKinematicTranslation({
-        x: vec.x - dragged.x,
-        y: vec.y - dragged.y,
-        z: vec.z - dragged.z,
-      })
+      // Posisi tujuan kartu, lalu dibatasi supaya tidak melewati panjang tali
+      target.set(vec.x - dragged.x, vec.y - dragged.y, 0)
+      pull.copy(target).add(anchorOffset).sub(HANG_POINT)
+      if (pull.length() > MAX_PULL) {
+        pull.setLength(MAX_PULL)
+        target.copy(HANG_POINT).add(pull).sub(anchorOffset)
+      }
+      card.current?.setNextKinematicTranslation({ x: target.x, y: target.y, z: 0 })
     }
 
     if (fixed.current && card.current) {
@@ -154,13 +173,13 @@ function Band({ flipped, onFlip, maxSpeed = 50, minSpeed = 10 }) {
       <group position={[0, 4, 0]}>
         <RigidBody ref={fixed} {...segmentProps} type="fixed" />
         <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}>
-          <BallCollider args={[0.1]} />
+          <BallCollider args={[0.1]} density={SEGMENT_DENSITY} />
         </RigidBody>
         <RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps}>
-          <BallCollider args={[0.1]} />
+          <BallCollider args={[0.1]} density={SEGMENT_DENSITY} />
         </RigidBody>
         <RigidBody position={[1.5, 0, 0]} ref={j3} {...segmentProps}>
-          <BallCollider args={[0.1]} />
+          <BallCollider args={[0.1]} density={SEGMENT_DENSITY} />
         </RigidBody>
 
         <RigidBody
@@ -234,24 +253,25 @@ function Band({ flipped, onFlip, maxSpeed = 50, minSpeed = 10 }) {
               />
             </mesh>
 
-            {/* Klip logam dan cincin tempat tali masuk */}
-            <RoundedBox args={[0.34, 0.22, 0.07]} radius={0.03} position={[0, 1.2, 0]}>
+            {/* Klip logam. Ujung tali masuk ke dalamnya (tersembunyi di balik klip) */}
+            <RoundedBox args={[0.36, 0.3, 0.08]} radius={0.035} smoothness={4} position={[0, 1.22, 0]}>
               <meshStandardMaterial color="#cbd5e1" metalness={1} roughness={0.25} />
             </RoundedBox>
-            <mesh position={[0, 1.35, 0]}>
-              <torusGeometry args={[0.09, 0.025, 16, 32]} />
-              <meshStandardMaterial color="#cbd5e1" metalness={1} roughness={0.25} />
+            {/* Lubang kecil di klip, sekadar hiasan */}
+            <mesh position={[0, 1.3, 0.042]}>
+              <circleGeometry args={[0.035, 24]} />
+              <meshBasicMaterial color="#0a1840" />
             </mesh>
           </group>
         </RigidBody>
       </group>
 
       {/* Tali */}
-      <mesh ref={band}>
+      <mesh ref={band} renderOrder={-1}>
         <meshLineGeometry />
         <meshLineMaterial
           color="white"
-          depthTest={false}
+          depthTest
           resolution={[width, height]}
           useMap
           map={strap}
@@ -291,7 +311,7 @@ export default function Lanyard() {
         }}
       >
         <ambientLight intensity={Math.PI * 0.7} />
-        <Physics interpolate gravity={[0, -40, 0]} timeStep={1 / 60}>
+        <Physics interpolate gravity={[0, -40, 0]} timeStep={1 / 60} numSolverIterations={12}>
           <Band flipped={flipped} onFlip={toggleFlip} />
         </Physics>
         <Environment blur={0.75}>
