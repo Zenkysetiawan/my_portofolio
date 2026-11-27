@@ -1,42 +1,75 @@
-import { Component, lazy, Suspense } from 'react'
-import StaticCard from './StaticCard'
+import { Component, lazy, Suspense, useEffect, useState } from "react";
+import StaticCard from "./StaticCard";
+
+// ---------- Pengaturan yang boleh lu ubah ----------
+
+// Selagi 3D menunggu giliran diunduh, tampilkan apa?
+//   false = ruang kosong (tidak ada kedip, kartu 3D muncul perlahan)
+//   true  = kartu desainmu yang diam, lalu diganti 3D
+const SHOW_CARD_WHILE_WAITING = false;
+
+// Koneksi yang dianggap terlalu lambat untuk 3D (hanya terbaca di Chrome/Android)
+const SLOW_CONNECTIONS = ["slow-2g", "2g"];
+
+// ---------- Pengecekan perangkat ----------
 
 function supportsWebGL() {
   try {
-    const canvas = document.createElement('canvas')
-    return !!(canvas.getContext('webgl2') || canvas.getContext('webgl'))
+    const canvas = document.createElement("canvas");
+    return !!(canvas.getContext("webgl2") || canvas.getContext("webgl"));
   } catch {
-    return false
+    return false;
   }
 }
 
+// Pengguna menyalakan Data Saver, atau koneksinya lambat?
+function isDataConstrained() {
+  const conn = navigator.connection;
+  if (!conn) return false; // browser tidak memberi info = anggap aman
+  return (
+    conn.saveData === true || SLOW_CONNECTIONS.includes(conn.effectiveType)
+  );
+}
+
 // Dicek sekali saja, begitu file ini pertama dibaca
-const CAN_USE_3D = supportsWebGL()
+const CAN_USE_3D = supportsWebGL() && !isDataConstrained();
 
-// Fungsi untuk mengambil file Lanyard (berat) dari server
-const loadLanyard = () => import('./Lanyard')
-const Lanyard = lazy(loadLanyard)
+// ---------- Memuat lanyard (berat) ----------
 
-if (CAN_USE_3D) {
-  // Mulai mengunduh SEKARANG, bukan menunggu Hero tampil dulu
-  loadLanyard().catch(() => {}) // kalau gagal, jaring pengaman di bawah yang menangani
-  // Unduh gambar kartu lebih awal, supaya sudah siap saat kartu dibuat
-  new Image().src = '/images/card/front.jpg'
-  new Image().src = '/images/card/back.jpg'
-  new Image().src = '/images/card/strap.png'
+const loadLanyard = () => import("./Lanyard");
+const Lanyard = lazy(loadLanyard);
+
+// Jalankan fungsi SETELAH halaman selesai dimuat dan browser lagi senggang.
+// Jadi teks, navbar, dan bagian lain tampil dulu; lanyard menyusul.
+function afterFirstPaint(callback) {
+  const whenIdle = () => {
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(callback, { timeout: 2000 });
+    } else {
+      setTimeout(callback, 300);
+    }
+  };
+  if (document.readyState === "complete") whenIdle();
+  else window.addEventListener("load", whenIdle, { once: true });
+}
+
+function preloadCardImages() {
+  new Image().src = "/images/card/front.jpg";
+  new Image().src = "/images/card/back.jpg";
+  new Image().src = "/images/card/strap.png";
 }
 
 // Jaring pengaman: kalau Lanyard gagal dimuat atau error,
 // tampilkan kartu foto biasa. Website tidak ikut rusak.
 class Lanyard3DBoundary extends Component {
-  state = { failed: false }
+  state = { failed: false };
 
   static getDerivedStateFromError() {
-    return { failed: true }
+    return { failed: true };
   }
 
   render() {
-    return this.state.failed ? <StaticCard /> : this.props.children
+    return this.state.failed ? <StaticCard /> : this.props.children;
   }
 }
 
@@ -47,11 +80,32 @@ function Placeholder() {
       <div className="h-120 w-full md:h-160" />
       <div className="h-18" />
     </div>
-  )
+  );
 }
 
 export default function ProfileCard() {
-  if (!CAN_USE_3D) return <StaticCard />
+  // "go" menjadi true saat sudah waktunya mengunduh lanyard
+  const [go, setGo] = useState(false);
+
+  useEffect(() => {
+    if (!CAN_USE_3D) return;
+    let cancelled = false;
+    afterFirstPaint(() => {
+      if (cancelled) return;
+      preloadCardImages();
+      loadLanyard().catch(() => {}); // kalau gagal, jaring pengaman yang menangani
+      setGo(true);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Perangkat tidak cocok untuk 3D: kartu desain yang diam
+  if (!CAN_USE_3D) return <StaticCard />;
+
+  // Belum waktunya mengunduh 3D
+  if (!go) return SHOW_CARD_WHILE_WAITING ? <StaticCard /> : <Placeholder />;
 
   return (
     <Lanyard3DBoundary>
@@ -59,5 +113,5 @@ export default function ProfileCard() {
         <Lanyard />
       </Suspense>
     </Lanyard3DBoundary>
-  )
+  );
 }
